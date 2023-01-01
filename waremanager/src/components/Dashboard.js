@@ -5,11 +5,12 @@ import ProductDashoard from "./product/ProductsDashboard";
 import StockDashboard from "./stock/StockDashboard";
 import NewWarehouseModal from "./warehouse/WarehouseModal";
 import NewProductModal from "./product/ProductModal";
+import OrderDashboard from "./order/OrderDashboard";
 import TopMenu from "./TopMenu";
 
 import axios from "axios";
 
-import { API_URL, API_VERSION, WH_PATH, ST_PATH, PRO_PATH, WH_NAME, PRO_NAME, ST_NAME } from "../constants";
+import { API_URL, API_VERSION, WH_PATH, ST_PATH, PRO_PATH, WH_NAME, PRO_NAME, ST_NAME, ORD_NAME, ORD_PATH } from "../constants";
 
 class Dashboard extends Component {
   state = {
@@ -43,6 +44,10 @@ class Dashboard extends Component {
     axios.get(API_URL + "v" + API_VERSION + PRO_PATH).then(res => this.setState({ entities: res.data["response"] }));
   }
 
+  getOrders= () =>{
+    axios.get(API_URL + "v" + API_VERSION + ORD_PATH).then(res => this.setState({ entities: res.data["response"] }));
+  }
+
   setResource(resource_type, selected_entity){
     this.state.resource_type=resource_type;
     this.state.selected_entity=selected_entity;
@@ -59,6 +64,9 @@ class Dashboard extends Component {
     }
     if(this.state.resource_type === PRO_NAME){
       this.getProducts();
+    }
+    if(this.state.resource_type === ORD_NAME){
+      this.getOrders();
     }
   };
 
@@ -86,6 +94,12 @@ class Dashboard extends Component {
         stocks={this.state.entities}
         resetState={this.resetState}
         wh_id={this.state.selected_entity}
+      />;
+    }
+    if(this.state.resource_type === ORD_NAME){
+      dashboard = <OrderDashboard
+        orders={this.state.entities}
+        resetState={this.resetState}
       />;
     }
 

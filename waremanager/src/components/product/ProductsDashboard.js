@@ -11,7 +11,7 @@ class ProductDashoard extends Component {
         <thead>
           <tr>
             <th style={{padding: "15px"}}>Product name</th>
-            <th></th>
+            <th colSpan="6"></th>
           </tr>
         </thead>
         <tbody>
@@ -24,7 +24,7 @@ class ProductDashoard extends Component {
           ) : (
             products.map(product => (
               <tr key={product.id}>
-                <td style={{padding: "15px"}}>{product.name}</td>
+                <td style={{padding: "15px"}}>{product.name}</td>                
                 <td align="center">
                   
                 &nbsp;&nbsp;

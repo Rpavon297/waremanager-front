@@ -17,7 +17,7 @@ class WarehouseDashboard extends Component {
         <thead>
           <tr>
             <th style={{padding: "15px"}}>Warehouse location</th>
-            <th></th>
+            <th colSpan="5"></th>
           </tr>
         </thead>
         <tbody>
@@ -57,8 +57,10 @@ class WarehouseDashboard extends Component {
                       onClick={this.selectWarehouse}
                       style={{ minWidth: "150px" }}
                   >Check stock</Button>
-                  &nbsp;&nbsp;
-                  <ConfirmDeleteModal
+                  
+                </td>
+                <td>
+                <ConfirmDeleteModal
                     id={warehouses.id}
                     path={WH_PATH}
                     entity_name={WH_NAME}

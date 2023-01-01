@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Button, Container } from "reactstrap";
 import NewStockModal from "./stock/StockModal";
-import { WH_NAME, PRO_NAME} from "../constants";
+import { WH_NAME, PRO_NAME, ORD_NAME} from "../constants";
 
 class TopMenu extends Component {
   state = {
@@ -32,6 +32,16 @@ class TopMenu extends Component {
             Products
         </Button>
         );
+    var button_or = (
+      <Button
+          className="float-right"
+          name={ORD_NAME}
+          onClick={this.onChange}
+          style={{ minWidth: "200px" }}
+      >
+          Orders
+      </Button>
+      );
 
     return (
       <Container style={{ marginBottom: "10px"}} >
@@ -39,6 +49,8 @@ class TopMenu extends Component {
           {button_wh}
           &nbsp;&nbsp;
           {button_pr}
+          &nbsp;&nbsp;
+          {button_or}
           &nbsp;&nbsp;
           <NewStockModal
                     preselWarehouse={false}
