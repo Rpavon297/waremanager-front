@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Table } from "reactstrap";
-import { WH_PATH, WH_NAME } from "../constants";
+import ConfirmDeleteModal from "../generic/ConfirmDelete";
+import { PRO_NAME, PRO_PATH } from "../../constants";
 
 class ProductDashoard extends Component {
   render() {
@@ -9,7 +10,7 @@ class ProductDashoard extends Component {
       <Table dark>
         <thead>
           <tr>
-            <th>Product name</th>
+            <th style={{padding: "15px"}}>Product name</th>
             <th></th>
           </tr>
         </thead>
@@ -23,8 +24,16 @@ class ProductDashoard extends Component {
           ) : (
             products.map(product => (
               <tr key={product.id}>
-                <td>{product.name}</td>
+                <td style={{padding: "15px"}}>{product.name}</td>
                 <td align="center">
+                  
+                &nbsp;&nbsp;
+                  <ConfirmDeleteModal
+                    id={product.id}
+                    path={PRO_PATH}
+                    entity_name={PRO_NAME}
+                    resetState={this.props.resetState}
+                  />
                 </td>
               </tr>
             ))

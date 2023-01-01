@@ -11,10 +11,10 @@ class Header extends Component {
           width="100"
           alt="Warehouse Icon"
           className="img-thumbnail"
-          style={{ marginTop: "20px" }}
+          style={{ marginTop: "20px" , backgroundColor: "transparent", border: "None"}}
         />
         <hr />
-        <h1>Warehouse Manager</h1>
+        <h1 style={{font: "DejaVu Sans Mono, monospace, bold", color: "#dae0e3"}}>Generic Warehouse Stock Manager</h1>
       </div>
     );
   }

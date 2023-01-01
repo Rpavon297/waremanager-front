@@ -1,18 +1,20 @@
 import React, { Component } from "react";
 import { Col, Container, Row } from "reactstrap";
-import WarehouseDashboard from "./WarehouseDashboard";
-import ProductDashoard from "./ProductsDashboard";
-import StockDashboard from "./StockDashboard";
-import NewWarehouseModal from "./WarehouseModal";
+import WarehouseDashboard from "./warehouse/WarehouseDashboard";
+import ProductDashoard from "./product/ProductsDashboard";
+import StockDashboard from "./stock/StockDashboard";
+import NewWarehouseModal from "./warehouse/WarehouseModal";
+import NewProductModal from "./product/ProductModal";
 import TopMenu from "./TopMenu";
 
 import axios from "axios";
 
-import { API_URL, API_VERSION, WH_PATH, ST_PATH, PRO_PATH, WH_NAME, PRO_NAME, ST_NAME, ORD_NAME } from "../constants";
+import { API_URL, API_VERSION, WH_PATH, ST_PATH, PRO_PATH, WH_NAME, PRO_NAME, ST_NAME } from "../constants";
 
 class Dashboard extends Component {
   state = {
     entities: [],
+    default_entity: 0,
     selected_entity: null,
     resource_type: WH_NAME
   };
@@ -29,6 +31,7 @@ class Dashboard extends Component {
 
   getWarehouses = () => {
     axios.get(API_URL + "v" + API_VERSION + WH_PATH).then(res => this.setState({ entities: res.data["response"] }));
+    axios.get(API_URL + "v" + API_VERSION + WH_PATH + "default").then(res => this.setState({ default_entity: res.data["response"].id }));
   };
 
   getStock = () =>{
@@ -48,33 +51,37 @@ class Dashboard extends Component {
   }
 
   resetState = () => {
-    if(this.state.resource_type == WH_NAME){
+    if(this.state.resource_type === WH_NAME){
       this.getWarehouses();
     }
-    if(this.state.resource_type == ST_NAME){
+    if(this.state.resource_type === ST_NAME){
       this.getStock();
     }
-    if(this.state.resource_type == PRO_NAME){
+    if(this.state.resource_type === PRO_NAME){
       this.getProducts();
     }
   };
 
   render() {
     var dashboard
-    if(this.state.resource_type == WH_NAME){
+    var create_button
+    if(this.state.resource_type === WH_NAME){
       dashboard = <WarehouseDashboard
         warehouses={this.state.entities}
         setResource={this.setResource}
         resetState={this.resetState}
+        default_entity={this.state.default_entity}
       />;
+      create_button = <NewWarehouseModal create={true} resetState={this.resetState} />;
     }
-    if(this.state.resource_type == PRO_NAME){
+    if(this.state.resource_type === PRO_NAME){
       dashboard = <ProductDashoard
         products={this.state.entities}
         resetState={this.resetState}
       />;
+      create_button = <NewProductModal create={true} resetState={this.resetState} />;
     }
-    if(this.state.resource_type == ST_NAME){
+    if(this.state.resource_type === ST_NAME){
       dashboard = <StockDashboard
         stocks={this.state.entities}
         resetState={this.resetState}
@@ -86,7 +93,7 @@ class Dashboard extends Component {
       <Container style={{ marginTop: "20px" }}>
         <Row>
           <Col>
-            <TopMenu setResource={this.setResource} />
+            <TopMenu setResource={this.setResource} resetState={this.resetState}/>
           </Col>
         </Row>
         <Row>
@@ -96,7 +103,7 @@ class Dashboard extends Component {
         </Row>
         <Row>
           <Col>
-            <NewWarehouseModal create={true} resetState={this.resetState} />
+            {create_button}
           </Col>
         </Row>
       </Container>

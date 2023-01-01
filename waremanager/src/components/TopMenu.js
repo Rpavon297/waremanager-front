@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
-import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
-import NewWarehouseForm from "./WarehouseForm";
-import { ST_NAME, WH_NAME, ORD_NAME, PRO_NAME} from "../constants";
+import { Button, Container } from "reactstrap";
+import NewStockModal from "./stock/StockModal";
+import { WH_NAME, PRO_NAME} from "../constants";
 
 class TopMenu extends Component {
   state = {
@@ -34,10 +34,18 @@ class TopMenu extends Component {
         );
 
     return (
-      <Fragment>
-        {button_wh}
-        {button_pr}
-      </Fragment>
+      <Container style={{ marginBottom: "10px"}} >
+        <Fragment>
+          {button_wh}
+          &nbsp;&nbsp;
+          {button_pr}
+          &nbsp;&nbsp;
+          <NewStockModal
+                    preselWarehouse={false}
+                    resetState={this.props.resetState}
+                  />
+        </Fragment>
+      </Container>
     );
   }
 }

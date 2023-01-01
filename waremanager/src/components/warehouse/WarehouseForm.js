@@ -3,7 +3,7 @@ import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 
 import axios from "axios";
 
-import { API_URL, API_VERSION, WH_PATH,} from "../constants";
+import { API_URL, API_VERSION, WH_PATH,} from "../../constants";
 
 
 class NewWarehouseForm extends React.Component {
@@ -40,7 +40,7 @@ class NewWarehouseForm extends React.Component {
       return (
         <Form onSubmit={this.createWarehouse}>
           <FormGroup>
-            <Label for="address">Address:</Label>
+            <Label style={{marginRight:"10px"}} for="address">Address:</Label>
             <Input
               type="text"
               name="address"

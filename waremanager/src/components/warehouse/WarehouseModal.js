@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
 import NewWarehouseForm from "./WarehouseForm";
-import { ST_NAME, WH_NAME, ORD_NAME, PRO_NAME} from "../constants";
 
 class NewWarehouseModal extends Component {
   state = {
@@ -19,12 +18,11 @@ class NewWarehouseModal extends Component {
 
     var button = (
     <Button
-        color="primary"
         className="float-right"
         onClick={this.toggle}
         style={{ minWidth: "200px" }}
     >
-        Create
+        New warehouse
     </Button>
     );
 
